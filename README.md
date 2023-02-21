@@ -56,7 +56,7 @@ $result = $s3->getObject([
 echo $result['Body'];
 ```
 
-### Fake
+## Testing
 
 You may use the `AWS` facade's `fake` method to apply the mock handler.
 
@@ -75,7 +75,7 @@ $mock->append(function (CommandInterface $cmd, RequestInterface $req) {
     return new AwsException('Mock exception', $cmd);
 });
 
-AWS::fake($mock);
+\AWS::fake($mock);
 
 $s3 = \AWS::createClient('s3');
 
