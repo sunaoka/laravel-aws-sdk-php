@@ -1,2 +1,1 @@
-# laravel-aws-sdk-php
-AWS Service Provider for Laravel
+# AWS Service Provider for Laravel
