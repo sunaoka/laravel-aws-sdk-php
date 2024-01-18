@@ -16,12 +16,13 @@ class ServiceProvider extends BaseServiceProvider implements DeferrableProvider
     public function register(): void
     {
         $this->mergeConfigFrom(
-            dirname(__DIR__, 3) . '/config/aws.php',
+            dirname(__DIR__, 3).'/config/aws.php',
             'aws'
         );
 
         $this->app->singleton(Sdk::class, function ($app) {
             $config = $app->make('config')->get('aws');
+
             return new Sdk($config);
         });
     }
@@ -33,7 +34,7 @@ class ServiceProvider extends BaseServiceProvider implements DeferrableProvider
     {
         if ($this->app->runningInConsole()) {
             $this->publishes(
-                [dirname(__DIR__, 3) . '/config/aws.php' => $this->app->configPath('aws.php')],
+                [dirname(__DIR__, 3).'/config/aws.php' => $this->app->configPath('aws.php')],
                 'aws-config'
             );
         }

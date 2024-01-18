@@ -16,14 +16,13 @@ return [
     */
 
     'credentials' => [
-        'key'    => env('AWS_ACCESS_KEY_ID'),
+        'key' => env('AWS_ACCESS_KEY_ID'),
         'secret' => env('AWS_SECRET_ACCESS_KEY'),
-        'token'  => env('AWS_SESSION_TOKEN'),
+        'token' => env('AWS_SESSION_TOKEN'),
     ],
-    'region'      => env('AWS_DEFAULT_REGION'),
-    'version'     => env('AWS_API_VERSION', 'latest'),
-    'endpoint'    => env('AWS_ENDPOINT'),
-
+    'region' => env('AWS_DEFAULT_REGION'),
+    'version' => env('AWS_API_VERSION', 'latest'),
+    'endpoint' => env('AWS_ENDPOINT'),
 
     /*
     |--------------------------------------------------------------------------
