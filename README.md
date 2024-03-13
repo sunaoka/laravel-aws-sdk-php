@@ -3,7 +3,7 @@
 [![Latest Stable Version](https://poser.pugx.org/sunaoka/laravel-aws-sdk-php/v/stable)](https://packagist.org/packages/sunaoka/laravel-aws-sdk-php)
 [![License](https://poser.pugx.org/sunaoka/laravel-aws-sdk-php/license)](https://packagist.org/packages/sunaoka/laravel-aws-sdk-php)
 [![PHP from Packagist](https://img.shields.io/packagist/php-v/sunaoka/laravel-aws-sdk-php)](composer.json)
-[![Laravel](https://img.shields.io/badge/laravel-6.x%20%7C%207.x%20%7C%208.x%20%7C%209.x%20%7C%2010.x-red)](https://laravel.com/)
+[![Laravel](https://img.shields.io/badge/laravel-%3E=%206.x-red)](https://laravel.com/)
 [![Test](https://github.com/sunaoka/laravel-aws-sdk-php/actions/workflows/test.yml/badge.svg)](https://github.com/sunaoka/laravel-aws-sdk-php/actions/workflows/test.yml)
 [![codecov](https://codecov.io/gh/sunaoka/laravel-aws-sdk-php/branch/main/graph/badge.svg?token=VW3IQRG6VG)](https://codecov.io/gh/sunaoka/laravel-aws-sdk-php)
 
