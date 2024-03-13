@@ -29,7 +29,7 @@ class ServiceProviderTest extends TestCase
 
         $actual = $actual->getObject([
             'Bucket' => 'Bucket',
-            'Key'    => 'Key',
+            'Key' => 'Key',
         ]);
 
         self::assertSame(__METHOD__, $actual['Body']);
@@ -45,7 +45,7 @@ class ServiceProviderTest extends TestCase
 
         $actual = $actual->getObject([
             'Bucket' => 'Bucket',
-            'Key'    => 'Key',
+            'Key' => 'Key',
         ]);
 
         self::assertSame(__METHOD__, $actual['Body']);
@@ -61,7 +61,7 @@ class ServiceProviderTest extends TestCase
 
         $actual = $actual->getObject([
             'Bucket' => 'Bucket',
-            'Key'    => 'Key',
+            'Key' => 'Key',
         ]);
 
         self::assertSame(__METHOD__, $actual['Body']);

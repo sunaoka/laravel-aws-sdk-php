@@ -35,8 +35,8 @@ class TestCase extends \Orchestra\Testbench\TestCase
     protected function defineEnvironment($app): void
     {
         $app['config']->set('aws', [
-            'version'     => 'latest',
-            'region'      => 'us-east-1',
+            'version' => 'latest',
+            'region' => 'us-east-1',
             'credentials' => false,
         ]);
     }

@@ -14,7 +14,7 @@ class StubClass
 
         $s3 = $s3->getObject([
             'Bucket' => $bucket,
-            'Key'    => $key,
+            'Key' => $key,
         ]);
 
         return $s3['Body'];

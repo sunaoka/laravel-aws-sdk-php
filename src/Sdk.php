@@ -48,21 +48,11 @@ class Sdk extends \Aws\Sdk
         return $client;
     }
 
-    /**
-     * @param MockHandler|null $handler
-     *
-     * @return void
-     */
-    public function fake(MockHandler $handler = null): void
+    public function fake(?MockHandler $handler = null): void
     {
         $this->handler = $handler;
     }
 
-    /**
-     * @param AwsClientInterface $client
-     *
-     * @return void
-     */
     protected function setHandler(AwsClientInterface $client): void
     {
         if ($this->handler !== null) {
