@@ -46,7 +46,7 @@ return [
 ## Usage
 
 ```php
-$s3 = \AWS::createClient('s3');
+$s3 = \AWS::createS3();
 
 $result = $s3->getObject([
     'Bucket' => 'Bucket',
@@ -77,7 +77,7 @@ $mock->append(function (CommandInterface $cmd, RequestInterface $req) {
 
 \AWS::fake($mock);
 
-$s3 = \AWS::createClient('s3');
+$s3 = \AWS::createS3();
 
 $result = $s3->getObject([
     'Bucket' => 'Bucket',
@@ -85,4 +85,39 @@ $result = $s3->getObject([
 ]);
 
 echo $result['Body']; // foo
+```
+
+Mock handlers can also be set for each client.
+
+```php
+use Aws\DynamoDB\DynamoDbClient;
+use Aws\MockHandler;
+use Aws\Result;
+use Aws\S3\S3Client;
+
+$mockHandlers = [
+    S3Client::class => new MockHandler([
+        new Result(['Body' => __METHOD__]),
+    ]),
+    DynamoDbClient::class => new MockHandler([
+        new Result(['TableNames' => ['Table1', 'Table2', 'Table3']]),
+    ]),
+];
+
+\AWS::fake($mockHandlers);
+
+$s3 = \AWS::createS3();
+
+$result = $s3->getObject([
+    'Bucket' => 'Bucket',
+    'Key'    => 'Key',
+]);
+
+echo $result['Body']; // foo
+
+$dynamoDb = \AWS::createDynamoDb();
+
+$result = $dynamoDb->listTables();
+
+echo $result['TableNames'][0]; // Table1
 ```
