@@ -18,8 +18,8 @@ class Sdk extends \Aws\Sdk
     protected $handler = null;
 
     /**
-     * @inerhitDoc
-     *
+     * @param  string  $name
+     * @param  mixed[]  $args
      * @return AwsClientInterface
      *
      * @throws BadMethodCallException
@@ -35,7 +35,8 @@ class Sdk extends \Aws\Sdk
     }
 
     /**
-     * @inerhitDoc
+     * @param  string  $name
+     * @param  mixed[]  $args
      *
      * @throws InvalidArgumentException
      */

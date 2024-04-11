@@ -12,11 +12,12 @@ class StubClass
     {
         $s3 = AWS::createS3();
 
-        $s3 = $s3->getObject([
+        $result = $s3->getObject([
             'Bucket' => $bucket,
             'Key' => $key,
         ]);
 
-        return $s3['Body'];
+        /** @var string */
+        return $result['Body'];
     }
 }
