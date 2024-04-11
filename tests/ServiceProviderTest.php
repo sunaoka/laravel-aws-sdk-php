@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Tests;
 
+use Aws\DynamoDb\DynamoDbClient;
 use Aws\MockHandler;
 use Aws\Result;
 use Aws\S3\S3Client;
@@ -75,5 +76,41 @@ class ServiceProviderTest extends TestCase
         $actual = $class->get('Bucket', 'Key');
 
         self::assertSame(__METHOD__, $actual);
+    }
+
+    public function test_multiple_mock_handler(): void
+    {
+        AWS::fake([
+            S3Client::class => new MockHandler([
+                new Result(['Body' => __METHOD__]),
+            ]),
+            S3MultiRegionClient::class => new MockHandler([
+                new Result(['Body' => __METHOD__]),
+            ]),
+            DynamoDbClient::class => new MockHandler([
+                new Result(['TableNames' => ['Table1', 'Table2', 'Table3']]),
+            ]),
+        ]);
+
+        $s3 = AWS::createS3();
+        $actual = $s3->getObject([
+            'Bucket' => 'Bucket',
+            'Key' => 'Key',
+        ]);
+
+        self::assertSame(__METHOD__, $actual['Body']);
+
+        $s3 = AWS::createMultiRegionS3();
+        $actual = $s3->getObject([
+            'Bucket' => 'Bucket',
+            'Key' => 'Key',
+        ]);
+
+        self::assertSame(__METHOD__, $actual['Body']);
+
+        $dynamoDb = AWS::createDynamoDb();
+        $actual = $dynamoDb->listTables();
+
+        self::assertSame(['Table1', 'Table2', 'Table3'], $actual['TableNames']);
     }
 }

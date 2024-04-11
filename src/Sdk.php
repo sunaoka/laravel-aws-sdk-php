@@ -13,7 +13,7 @@ use InvalidArgumentException;
 class Sdk extends \Aws\Sdk
 {
     /**
-     * @var MockHandler|null
+     * @var MockHandler|array<class-string<AwsClientInterface>, MockHandler>|null
      */
     protected $handler = null;
 
@@ -48,20 +48,39 @@ class Sdk extends \Aws\Sdk
         return $client;
     }
 
-    public function fake(?MockHandler $handler = null): void
+    /**
+     * @param  MockHandler|array<class-string<AwsClientInterface>, MockHandler>|null  $handler
+     */
+    public function fake($handler = null): void
     {
         $this->handler = $handler;
     }
 
     protected function setHandler(AwsClientInterface $client): void
     {
-        if ($this->handler !== null) {
+        if ($this->handler === null) {
+            return;
+        }
+
+        if ($this->handler instanceof MockHandler) {
             if ($client instanceof MultiRegionClient) {
                 $client->useCustomHandler($this->handler);
             } else {
                 $client->getHandlerList()->setHandler($this->handler);
             }
             $this->handler = null;
+
+            return;
+        }
+
+        $clientClass = get_class($client);
+        if (isset($this->handler[$clientClass])) {
+            if ($client instanceof MultiRegionClient) {
+                $client->useCustomHandler($this->handler[$clientClass]);
+            } else {
+                $client->getHandlerList()->setHandler($this->handler[$clientClass]);
+            }
+            unset($this->handler[$clientClass]);
         }
     }
 }
