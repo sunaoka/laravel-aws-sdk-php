@@ -4,13 +4,16 @@ declare(strict_types=1);
 
 namespace Tests;
 
+use Illuminate\Contracts\Config\Repository;
+use Illuminate\Foundation\Application;
 use Sunaoka\Aws\Laravel\Facade\AWS;
 use Sunaoka\Aws\Laravel\Provider\ServiceProvider;
 
 class TestCase extends \Orchestra\Testbench\TestCase
 {
     /**
-     * @inerhitDoc
+     * @param  Application  $app
+     * @return array<int, class-string>
      */
     protected function getPackageProviders($app): array
     {
@@ -20,7 +23,8 @@ class TestCase extends \Orchestra\Testbench\TestCase
     }
 
     /**
-     * @inerhitDoc
+     * @param  Application  $app
+     * @return array<string, class-string>
      */
     protected function getPackageAliases($app): array
     {
@@ -30,14 +34,16 @@ class TestCase extends \Orchestra\Testbench\TestCase
     }
 
     /**
-     * @inerhitDoc
+     * @param  Application|array{config: Repository}  $app
      */
     protected function defineEnvironment($app): void
     {
-        $app['config']->set('aws', [
-            'version' => 'latest',
-            'region' => 'us-east-1',
-            'credentials' => false,
-        ]);
+        tap($app['config'], static function (Repository $config) {
+            $config->set('aws', [
+                'version' => 'latest',
+                'region' => 'us-east-1',
+                'credentials' => false,
+            ]);
+        });
     }
 }
