@@ -27,6 +27,7 @@ class Sdk extends \Aws\Sdk
      */
     public function __call($name, array $args)
     {
+        /** @var AwsClientInterface $client */
         $client = parent::__call($name, $args);
 
         $this->setHandler($client);

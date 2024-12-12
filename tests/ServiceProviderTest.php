@@ -72,7 +72,7 @@ class ServiceProviderTest extends TestCase
     {
         AWS::fake(new MockHandler([new Result(['Body' => __METHOD__])]));
 
-        $class = new StubClass();
+        $class = new StubClass;
         $actual = $class->get('Bucket', 'Key');
 
         self::assertSame(__METHOD__, $actual);

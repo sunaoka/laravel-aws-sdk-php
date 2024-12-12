@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Sunaoka\Aws\Laravel\Provider;
 
 use Illuminate\Contracts\Support\DeferrableProvider;
+use Illuminate\Foundation\Application;
 use Illuminate\Support\ServiceProvider as BaseServiceProvider;
 use Sunaoka\Aws\Sdk;
 
@@ -20,8 +21,8 @@ class ServiceProvider extends BaseServiceProvider implements DeferrableProvider
             'aws'
         );
 
-        $this->app->singleton(Sdk::class, function ($app) {
-            $config = $app->make('config')->get('aws');
+        $this->app->singleton(Sdk::class, function (Application $app) {
+            $config = $app->make('config')->get('aws');  // @phpstan-ignore method.nonObject (Illuminate\Config\Repository)
 
             return new Sdk($config);
         });
