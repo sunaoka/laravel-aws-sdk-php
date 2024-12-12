@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Tests;
 
 use Illuminate\Contracts\Config\Repository;
+use Illuminate\Contracts\Container\BindingResolutionException;
 use Illuminate\Foundation\Application;
 use Sunaoka\Aws\Laravel\Facade\AWS;
 use Sunaoka\Aws\Laravel\Provider\ServiceProvider;
@@ -34,16 +35,21 @@ class TestCase extends \Orchestra\Testbench\TestCase
     }
 
     /**
-     * @param  Application|array{config: Repository}  $app
+     * @param  Application  $app
+     *
+     * @throws BindingResolutionException
      */
     protected function defineEnvironment($app): void
     {
-        tap($app['config'], static function (Repository $config) {
+        // @phpstan-ignore argument.type (Illuminate\Config\Repository)
+        tap($app->make('config'), static function (Repository $config) {
             $config->set('aws', [
                 'version' => 'latest',
                 'region' => 'us-east-1',
                 'credentials' => false,
             ]);
+
+            return $config;
         });
     }
 }
