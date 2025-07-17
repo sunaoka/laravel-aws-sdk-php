@@ -113,4 +113,56 @@ class ServiceProviderTest extends TestCase
 
         self::assertSame(['Table1', 'Table2', 'Table3'], $actual['TableNames']);
     }
+
+    public function test_closure_mock_handler(): void
+    {
+        AWS::fake(function () {
+            return new Result(['Body' => 'closure']);
+        });
+
+        $s3 = AWS::createClient('s3');
+
+        self::assertInstanceOf(S3Client::class, $s3);
+
+        $actual = $s3->getObject([
+            'Bucket' => 'Bucket',
+            'Key' => 'Key',
+        ]);
+
+        self::assertSame('closure', $actual['Body']);
+
+        $actual = $s3->getObject([
+            'Bucket' => 'Bucket',
+            'Key' => 'Key',
+        ]);
+
+        self::assertSame('closure', $actual['Body']);
+    }
+
+    public function test_multiple_closure_mock_handler(): void
+    {
+        AWS::fake([
+            S3Client::class => function () {
+                return new Result(['Body' => 'closure']);
+            }]
+        );
+
+        $s3 = AWS::createClient('s3');
+
+        self::assertInstanceOf(S3Client::class, $s3);
+
+        $actual = $s3->getObject([
+            'Bucket' => 'Bucket',
+            'Key' => 'Key',
+        ]);
+
+        self::assertSame('closure', $actual['Body']);
+
+        $actual = $s3->getObject([
+            'Bucket' => 'Bucket',
+            'Key' => 'Key',
+        ]);
+
+        self::assertSame('closure', $actual['Body']);
+    }
 }
