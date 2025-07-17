@@ -13,7 +13,7 @@ use InvalidArgumentException;
 class Sdk extends \Aws\Sdk
 {
     /**
-     * @var MockHandler|array<class-string<AwsClientInterface>, MockHandler>|null
+     * @var MockHandler|\Closure|array<class-string<AwsClientInterface>, MockHandler|\Closure>|null
      */
     protected $handler = null;
 
@@ -51,7 +51,7 @@ class Sdk extends \Aws\Sdk
     }
 
     /**
-     * @param  MockHandler|array<class-string<AwsClientInterface>, MockHandler>|null  $handler
+     * @param  MockHandler|\Closure|array<class-string<AwsClientInterface>, MockHandler|\Closure>|null  $handler
      */
     public function fake($handler = null): void
     {
@@ -64,7 +64,7 @@ class Sdk extends \Aws\Sdk
             return;
         }
 
-        if ($this->handler instanceof MockHandler) {
+        if ($this->handler instanceof MockHandler || is_callable($this->handler)) {
             if ($client instanceof MultiRegionClient) {
                 $client->useCustomHandler($this->handler);
             } else {
