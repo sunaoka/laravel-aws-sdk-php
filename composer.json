@@ -29,9 +29,12 @@
             "Tests\\": "tests/"
         }
     },
-    "minimum-stability": "dev",
+    "minimum-stability": "stable",
     "prefer-stable": true,
     "config": {
+        "audit": {
+            "ignore": ["aws/aws-sdk-php", "laravel/framework"]
+        },
         "preferred-install": "dist",
         "optimize-autoloader": true,
         "sort-packages": true
