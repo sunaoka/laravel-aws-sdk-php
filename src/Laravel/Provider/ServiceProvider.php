@@ -24,7 +24,7 @@ class ServiceProvider extends BaseServiceProvider implements DeferrableProvider
         $this->app->singleton(Sdk::class, function (Application $app) {
             $config = $app->make('config')->get('aws');  // @phpstan-ignore method.nonObject (Illuminate\Config\Repository)
 
-            return new Sdk($config);
+            return new Sdk($config);  // @phpstan-ignore argument.type ($config is array)
         });
     }
 
