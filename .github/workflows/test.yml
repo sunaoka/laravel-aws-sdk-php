@@ -15,8 +15,8 @@ jobs:
     runs-on: ${{ matrix.os }}
 
     env:
-      latest_php: 8.4
-      latest_laravel: 11
+      latest_php: 8.5
+      latest_laravel: 12
 
     strategy:
       fail-fast: false
